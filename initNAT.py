@@ -13,8 +13,8 @@ c.execute('''CREATE TABLE courses(
 			);''')
 
 c.execute('''CREATE TABLE notes(
-				note_id PRIMARY KEY NOT NULL,
-				course_id int REFERENCES courses(id) NOT NULL,
+				note_id INTEGER PRIMARY KEY,
+				course_id INTEGER REFERENCES courses(id) NOT NULL,
 				location text NOT NULL,
 				created date NOT NULL,
 				modified date

@@ -29,10 +29,20 @@ def menu(connection):
 	cursor = connection.cursor()
 	print("Welcome to the Note Assistance Tool (NAT):\n")
 	while True:
+		os.system("clear")
 		option = get_option()
-		func_to_call = optionDict.get(option).get_function()
-		func_to_call(cursor)	
-		connection.commit()
+		if validOption(option):
+			func_to_call = optionDict.get(option).get_function()
+			func_to_call(cursor)	
+			connection.commit()
+		else:
+			input("Invalid option: " + option + "\npress any key to continue.")
+
+def validOption(option):
+	for o in optionDict:
+		if o == option:
+			return True
+	return False
 
 def get_option():
 	#os.system("clear")

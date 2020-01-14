@@ -1,19 +1,41 @@
+import common
 
 def new_note(cursor):
-	print("Add new note:")
+	print("Adding new note:\n")
+	print("Existing courses: ")
+	cursor.execute("SELECT code, title FROM courses;")
+	courses = cursor.fetchall()
+	for course in courses:
+		print(str(course[0]) + ": " + course[1])
+	print("Which course is this for?")
+
+	input("Press any key to continue: ")
 	return 
 
 def new_subject(cursor):
 	print("Adding a new subject:\n")
 	code = input("Please give a subject code:\t")
-	name = input("Please give a name for the subject:\t")
-	cursor.execute('SELECT * FROM courses WHERE (code=? AND title=?)', (code, name))
-	result = cursor.fetchone()
-	if result == None:
-		cursor.execute("INSERT INTO courses (code, title) VALUES(?, ?)", (code, name))
-		print("Successfully inserted " + name + "with course code: " + code)
+	title = input("Please give a name for the subject:\t")
+	cursor.execute('SELECT * FROM courses WHERE (code=? OR title=?)', (code, title))
+	result = cursor.fetchall()
+
+	if len(result) == 0:
+		common.add_course(cursor, code, title)
+		print("Successfully inserted " + title + "with course code: " + code)
 	else:
-		print("This course already exists!")
+		print("This course title or code is already in use in the following course(s):\n")
+		for row in result:
+			temp_str = "Entry: "
+			for col in row:
+				temp_str += str(col) + "\n"
+			print(temp_str)
+		if(input("would you like to delete the existing courses?\n y - yes\n n - no\n") == "y"):
+			for row in result:
+				common.remove_course(cursor, row[0])
+			print("Entries removed, adding new course...")
+			common.add_course(cursor, code, title)
+			print("Success!")
+
 	return()
 
 def change_recent_note(cursor):
