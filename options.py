@@ -9,14 +9,16 @@ def new_note(cursor):
 	code = input("Enter course code: ").replace("\n", "")
 
 	# Fetching course id data
-	cursor.execute("SELECT id FROM courses WHERE code=?", (int(code),))
+	cursor.execute("SELECT id FROM courses WHERE code=?", (code,))
 	course_id = cursor.fetchone()[0]
 
 	# Fetching creation time data
 	created = common.get_date()
+	created.replace(" ", "_")
 
 	# Fetching file location data
 	location = common.get_root_dir() + "/" + code + "." + created + ".note"
+	location.replace(" ", "_")
 
 	# Fetching description data
 	desc = input("Add a description for your note (e.g. Vectors and Scalars):\n\t")

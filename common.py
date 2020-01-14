@@ -18,9 +18,14 @@ def remove_course(cursor, course_id):
 def add_note(cursor, course_id, location, description, created):
 	sql = "INSERT INTO notes(course_id, location, description, created) VALUES(?, ?, ?, ?)"
 	cursor.execute(sql, (course_id, location, description, created))
-	os.system("touch " + location)
+	
+	cursor.execute("SELECT title FROM courses WHERE id=?", (course_id,))
+	course_title = cursor.fetchone()[0]
+	new_note = open(location, "a")
+	new_note.write(course_title +  "\t\t\t\t" + created.replace("_", " ") + "\n\n")
+	new_note.close()
 
 def get_date():
-	date = datetime.datetime.today().strftime("%d-%m-%Y")
+	date = datetime.datetime.today().strftime("%d-%m-%Y_%H:%M")
 	print(date)
 	return date
