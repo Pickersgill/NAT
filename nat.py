@@ -1,13 +1,19 @@
+
+# python imports:
 import sqlite3
+import os
+
+# local imports:
 import options
 
-optionChars = {
-				"s" : "NEW SUBJECT",
-				"n" : "NEW NOTE",
-				"c" : "CHANGE NOTE",
-				"cr" : "CHANGE RECENT_NOTE",
-				"g" : "GET NOTES",
-				"q" : "QUIT"
+Option = options.Option
+optionDict = {
+				"ns" : Option("NEW SUBJECT", options.new_subject),
+				"nn" : Option("NEW NOTE", options.new_note),
+				"cn" : Option("CHANGE NOTE", options.change_note),
+				"crn" : Option("CHANGE RECENT_NOTE", options.change_recent_note),
+				"gn" : Option("GET NOTES", options.get_notes),
+				"q" : Option("QUIT", options.quit),
 			}
 
 def start():
@@ -19,30 +25,29 @@ def start():
 	connection.commit()
 	connection.close()
 
+
 def menu(cursor):
 	print("Welcome to the Note Assistance Tool (NAT):\n")
-	options.setCursor(cursor)
-	option = ""
-	while option != "q":
-		option = getOption()
-		if option == "s":
-			options.newSubject()
-		elif option == "n":
-			options.newNote()
+	while True:
+		option = get_option()
+		func_to_call = optionDict.get(option).get_function()
+		func_to_call(cursor)	
 
-def getOption():
+def get_option():
+	#os.system("clear")
 	menu_size = 20
-
-	for option in optionChars:
-		option_string = optionChars.get(option).rjust(20)
+	print()
+	for option in optionDict:
+		option_string = optionDict.get(option).get_name().rjust(20)
 		option_string += " - "
-		option_string += option.replace("_", " ").ljust(20)
+		option_string += option.ljust(20)
 		print(option_string)
+	
+	option = input("\nInput option: ").lower().replace(" ", "")
 
-	return(input("\nInput option: "))		
+	return(option)		
 
-
-def createNote(subject, tags):
+def create_note(subject, tags):
 	assert type(subject) is StringType, "Subject given is not string: %r" % subject
 	if(isInstance(tags, list)):
 		if tags.size() > 0:
@@ -57,6 +62,7 @@ def createNote(subject, tags):
 def warning(message):
 	assert type(message) is StringType, "message given is not string"
 	print("\nWARNING:\t " + message)	
+
 
 if __name__ == "__main__":
 	start()
