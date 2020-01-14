@@ -16,6 +16,7 @@ c.execute('''CREATE TABLE notes(
 				note_id INTEGER PRIMARY KEY,
 				course_id INTEGER REFERENCES courses(id) NOT NULL,
 				location text NOT NULL,
+				description text,
 				created date NOT NULL,
 				modified date
 			);''')

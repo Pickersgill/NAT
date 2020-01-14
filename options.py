@@ -1,15 +1,31 @@
 import common
 
 def new_note(cursor):
-	print("Adding new note:\n")
-	print("Existing courses: ")
+	print("Which course is this note for? \n")
 	cursor.execute("SELECT code, title FROM courses;")
 	courses = cursor.fetchall()
 	for course in courses:
 		print(str(course[0]) + ": " + course[1])
-	print("Which course is this for?")
+	code = input("Enter course code: ").replace("\n", "")
 
-	input("Press any key to continue: ")
+	# Fetching course id data
+	cursor.execute("SELECT id FROM courses WHERE code=?", (int(code),))
+	course_id = cursor.fetchone()[0]
+
+	# Fetching creation time data
+	created = common.get_date()
+
+	# Fetching file location data
+	location = common.get_root_dir() + "/" + code + "." + created + ".note"
+
+	# Fetching description data
+	desc = input("Add a description for your note (e.g. Vectors and Scalars):\n\t")
+	if len(desc) == 0:
+		desc = "untitled"
+	
+	common.add_note(cursor, course_id, location, desc, created)
+	
+	common.wait_key()
 	return 
 
 def new_subject(cursor):
