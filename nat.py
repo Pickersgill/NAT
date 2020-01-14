@@ -18,20 +18,21 @@ optionDict = {
 
 def start():
 	connection = sqlite3.connect("notes.db")
-	cursor = connection.cursor()
 	
-	menu(cursor)
+	menu(connection)
 
 	connection.commit()
 	connection.close()
 
 
-def menu(cursor):
+def menu(connection):
+	cursor = connection.cursor()
 	print("Welcome to the Note Assistance Tool (NAT):\n")
 	while True:
 		option = get_option()
 		func_to_call = optionDict.get(option).get_function()
 		func_to_call(cursor)	
+		connection.commit()
 
 def get_option():
 	#os.system("clear")

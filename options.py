@@ -7,8 +7,13 @@ def new_subject(cursor):
 	print("Adding a new subject:\n")
 	code = input("Please give a subject code:\t")
 	name = input("Please give a name for the subject:\t")
-	cursor.execute("INSERT INTO courses (code, title) VALUES(?, ?)", (code, name))
-	print("Successfully inserted " + name + "with course code: " + code)
+	cursor.execute('SELECT * FROM courses WHERE (code=? AND title=?)', (code, name))
+	result = cursor.fetchone()
+	if result == None:
+		cursor.execute("INSERT INTO courses (code, title) VALUES(?, ?)", (code, name))
+		print("Successfully inserted " + name + "with course code: " + code)
+	else:
+		print("This course already exists!")
 	return()
 
 def change_recent_note(cursor):
