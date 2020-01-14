@@ -7,7 +7,7 @@ c.execute("DROP TABLE IF EXISTS notes;")
 c.execute("DROP TABLE IF EXISTS courses;")
 
 c.execute('''CREATE TABLE courses(
-				int id PRIMARY KEY NOT NULL,
+				int id AUTO_INCREMENT PRIMARY KEY,
 				code text NOT NULL,
 				title text	
 			);''')
