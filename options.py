@@ -1,16 +1,10 @@
 import common
 
 def new_note(cursor):
+	# Fetching course code data
 	print("Which course is this note for? \n")
-	cursor.execute("SELECT code, title FROM courses;")
-	courses = cursor.fetchall()
-	for course in courses:
-		print(str(course[0]) + ": " + course[1])
+	common.print_courses(cursor)
 	code = input("Enter course code: ").replace("\n", "")
-
-	# Fetching course id data
-	cursor.execute("SELECT id FROM courses WHERE code=?", (code,))
-	course_id = cursor.fetchone()[0]
 
 	# Fetching creation time data
 	created = common.get_date()
@@ -25,7 +19,7 @@ def new_note(cursor):
 	if len(desc) == 0:
 		desc = "untitled"
 	
-	common.add_note(cursor, course_id, location, desc, created)
+	common.add_note(cursor, code, location, desc, created)
 	
 	common.wait_key()
 	return 
@@ -56,11 +50,29 @@ def new_subject(cursor):
 
 	return()
 
+def remove_note(cursor):
+	print("For which course would you like to remove a note?")
+	print("Which note would you like to remove?")	
+	common.print_courses(cursor)
+	course = input("Enter course code: ")
+	print("Okay, fetching notes for that course...")
+	common.print_notes(cursor, course)
+	note_id = input("Which note would you like to delete?")
+	common.remove_note(cursor, note_id)
+	return()
+
 def change_recent_note(cursor):
 	print("Change most recent note:")
 	return()
 
 def change_note(cursor):
+	print("Which course would you like to change notes for?")
+	print_courses(cursor)
+	course_code = input("Enter course code: ")
+	course_id = "" 
+	print("Okay, fetching notes for that course...")
+	print_notes(cursor, course)
+	print("Which note would you like to delete?")
 	print("Change a note:")
 	return()
 
