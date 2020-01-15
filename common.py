@@ -9,6 +9,10 @@ def get_root_dir():
 def wait_key():
 	input("Press any key to continue: ")
 
+def open_note(location):
+	editor = config.get("default_editor")
+	os.system(editor + " " + location)
+
 def add_course(cursor, code, title):
 	cursor.execute("INSERT INTO courses VALUES(?, ?)", (code, title))
 
@@ -25,10 +29,9 @@ def remove_note(cursor, note_id):
 def add_note(cursor, course_code, location, description, created):
 	sql = "INSERT INTO notes(course_code, location, description, created) VALUES(?, ?, ?, ?)"
 	cursor.execute(sql, (course_code, location, description, created))
-	
 	cursor.execute("SELECT title FROM courses WHERE code=?", (course_code,))
 	course_title = cursor.fetchone()[0]
-	new_note = open(location, "a")
+	new_note = open(location, "w")
 	new_note.write(course_code + " " + course_title +  "\t\t\t\t" + created.replace("_", " ") + "\n\n")
 	new_note.close()
 

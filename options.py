@@ -20,9 +20,12 @@ def new_note(cursor):
 		desc = "untitled"
 	
 	common.add_note(cursor, code, location, desc, created)
-	
+
+	if(input("Note creation was successful, to open the note now, enter 'o'").lower() == "o"):
+		common.open_note(location)
+	else:
+		print("Okay, returning to menu")
 	common.wait_key()
-	return 
 
 def new_subject(cursor):
 	print("Adding a new subject:\n")
@@ -48,8 +51,6 @@ def new_subject(cursor):
 			common.add_course(cursor, code, title)
 			print("Success!")
 
-	return()
-
 def remove_note(cursor):
 	print("For which course would you like to remove a note?")
 	print("Which note would you like to remove?")	
@@ -59,11 +60,9 @@ def remove_note(cursor):
 	common.print_notes(cursor, course)
 	note_id = input("Which note would you like to delete?")
 	common.remove_note(cursor, note_id)
-	return()
 
 def change_recent_note(cursor):
 	print("Change most recent note:")
-	return()
 
 def change_note(cursor):
 	print("Which course would you like to change notes for?")
@@ -74,11 +73,9 @@ def change_note(cursor):
 	print_notes(cursor, course)
 	print("Which note would you like to delete?")
 	print("Change a note:")
-	return()
 
 def get_notes(cursor):
 	print("Retrieve a note:")
-	return()
 
 def quit(cursor):
 	print("Quitting...")
