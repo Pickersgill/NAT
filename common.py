@@ -17,7 +17,12 @@ def add_course(cursor, code, title):
 	cursor.execute("INSERT INTO courses VALUES(?, ?)", (code, title))
 
 def remove_course(cursor, course_code):
-	cursor.execute("DELETE FROM courses WHERE id=?", (course_code,))
+	cursor.execute("DELETE FROM courses WHERE code=?", (course_code,))
+	cursor.execute("SELECT note_id FROM notes WHERE course_code=?", (course_code,))
+	result = cursor.fetchall()
+	for r in result:
+		curr_note_id = r[0]
+		remove_note(cursor, curr_note_id)
 
 def remove_note(cursor, note_id):
 	cursor.execute("SELECT location FROM notes WHERE note_id = ?;", (note_id,))

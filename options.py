@@ -30,10 +30,10 @@ def new_note(cursor):
 
 	common.wait_key()
 
-def new_subject(cursor):
-	print("Adding a new subject:\n")
-	code = input("Please give a subject code:\t")
-	title = input("Please give a name for the subject:\t")
+def new_course(cursor):
+	print("Adding a new course:\n")
+	code = input("Please give a course code:\t")
+	title = input("Please give a name for the course:\t")
 	cursor.execute('SELECT * FROM courses WHERE (code=? OR title=?)', (code, title))
 	result = cursor.fetchall()
 
@@ -48,11 +48,13 @@ def new_subject(cursor):
 				temp_str += str(col) + "\n"
 			print(temp_str)
 		if(input("would you like to delete the existing courses?\n y - yes\n n - no\n") == "y"):
-			for row in result:
-				common.remove_course(cursor, row[0])
-			print("Entries removed, adding new course...")
-			common.add_course(cursor, code, title)
-			print("Success!")
+			print("WARNING, ALL ASSOCIATED NOTES WILL ALSO BE DELETED")
+			if input("ARE YOU SURE YOU WANT TO DELETE THESE COURSES (Y/N)?").upper != "Y":	
+				for row in result:
+					common.remove_course(cursor, row[0])
+				print("Entries removed, adding new course...")
+				common.add_course(cursor, code, title)
+				print("Success!")
 
 def remove_note(cursor):
 	print("For which course would you like to remove a note?")
@@ -77,7 +79,20 @@ def remove_note(cursor):
 	common.remove_note(cursor, note_id)
 
 def change_recent_note(cursor):
-	print("Change most recent note:")
+	sql = '''SELECT location, description, modified
+				FROM notes
+				ORDER BY modified
+				LIMIT 1;'''
+	cursor.execute(sql)
+	result = cursor.fetchone()
+	location = result[0]
+	desc = result[1]
+	modified = result[2]
+	print("Opening " + desc + " last changed at: " + modified + "...")
+	common.wait_key()
+	common.open_note(location)
+	print("Successfuly changed note...")
+	common.wait_key()
 
 def change_note(cursor):
 	print("Which course would you like to change notes for?")
@@ -102,6 +117,28 @@ def change_note(cursor):
 	result = cursor.fetchone()
 	
 	common.open_note(result[0])
+	common.wait_key()
+
+def remove_course(cursor):
+	print("Which course would you like to remove?")
+	common.print_courses(cursor)
+	course_code = input("Input course code: ")
+	
+	if not common.valid_course_code(cursor, course_code):
+		print("Given course code does not exist, returning to menu...")
+		common.wait_key()
+		return
+
+	print("REMOVING THIS COURSE WILL ALSO REMOVE ALL ASSOCIATED NOTES")
+	
+	if input("ARE YOU SURE YOU WANT TO REMOVE COURSE (Y/N)?").upper() != "Y":
+		print("Okay, returning to menu...")
+		common.wait_key()
+		return
+	
+	print("Okay, removing course...")
+	common.remove_course(cursor, course_code)
+	print("Course removed...")
 	common.wait_key()
 
 def get_notes(cursor):

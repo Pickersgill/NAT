@@ -8,10 +8,11 @@ import options
 
 Option = options.Option
 optionDict = {
-				"ns" : Option("NEW SUBJECT", options.new_subject),
+				"nc" : Option("NEW COURSE", options.new_course),
 				"nn" : Option("NEW NOTE", options.new_note),
 				"cn" : Option("CHANGE NOTE", options.change_note),
-				"rm" : Option("REMOVE NOTE", options.remove_note),
+				"rn" : Option("REMOVE NOTE", options.remove_note),
+				"rc" : Option("REMOVE COURSE", options.remove_course), 
 				"crn" : Option("CHANGE RECENT_NOTE", options.change_recent_note),
 				"gn" : Option("GET NOTES", options.get_notes),
 				"q" : Option("QUIT", options.quit),
