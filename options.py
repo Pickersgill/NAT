@@ -12,7 +12,7 @@ def new_note(cursor):
 
 	# Fetching file location data
 	location = common.get_root_dir() + "/" + code + "." + created + ".note"
-	location.replace(" ", "_")
+	location = location.replace(" ", "_")
 
 	# Fetching description data
 	desc = input("Add a description for your note (e.g. Vectors and Scalars):\n\t")
@@ -25,6 +25,9 @@ def new_note(cursor):
 		common.open_note(location)
 	else:
 		print("Okay, returning to menu")
+	
+	cursor.execute("UPDATE notes SET modified=? WHERE location=?;", (common.get_date(), location,))
+
 	common.wait_key()
 
 def new_subject(cursor):
