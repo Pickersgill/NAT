@@ -48,7 +48,7 @@ def add_note(cursor, course_code, location, description, created):
 	new_note.close()
 
 def get_date():
-	date = datetime.datetime.today().strftime("%d-%m-%Y_%H:%M")
+	date = datetime.datetime.today().strftime("%d-%m-%Y_%H:%M:%-S")
 	print(date)
 	return date
 
@@ -61,6 +61,9 @@ def print_notes(cursor, course_code):
 	result = cursor.fetchall()
 	for r in result:
 		print(str(r[0]) + ":\t" + r[1] + ", " + r[2])
+
+def finish_modifying(cursor, location):
+	cursor.execute("UPDATE notes SET modified=? WHERE location=?", (get_date(), location,))	
 
 def print_courses(cursor):
 	cursor.execute("SELECT code, title FROM courses;")

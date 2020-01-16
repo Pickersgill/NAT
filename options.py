@@ -1,4 +1,5 @@
 import common
+import config
 
 def new_note(cursor):
 	# Fetching course code data
@@ -11,7 +12,7 @@ def new_note(cursor):
 	created.replace(" ", "_")
 
 	# Fetching file location data
-	location = common.get_root_dir() + "/" + code + "." + created + ".note"
+	location = config.get("root") + "/" + code + "." + created + ".note"
 	location = location.replace(" ", "_")
 
 	# Fetching description data
@@ -25,8 +26,8 @@ def new_note(cursor):
 		common.open_note(location)
 	else:
 		print("Okay, returning to menu")
-	
-	cursor.execute("UPDATE notes SET modified=? WHERE location=?;", (common.get_date(), location,))
+
+	common.finish_modifying(cursor, location)	
 
 	common.wait_key()
 
@@ -81,7 +82,7 @@ def remove_note(cursor):
 def change_recent_note(cursor):
 	sql = '''SELECT location, description, modified
 				FROM notes
-				ORDER BY modified
+				ORDER BY modified DESC
 				LIMIT 1;'''
 	cursor.execute(sql)
 	result = cursor.fetchone()
@@ -91,7 +92,10 @@ def change_recent_note(cursor):
 	print("Opening " + desc + " last changed at: " + modified + "...")
 	common.wait_key()
 	common.open_note(location)
+
 	print("Successfuly changed note...")
+	common.finish_modifying(cursor, location)
+
 	common.wait_key()
 
 def change_note(cursor):
@@ -114,9 +118,10 @@ def change_note(cursor):
 		return
 
 	cursor.execute("SELECT location FROM notes WHERE note_id=?", (note_id,))
-	result = cursor.fetchone()
+	location = cursor.fetchone()[0]
 	
-	common.open_note(result[0])
+	common.open_note(location)
+	common.finish_modifying(cursor, location)
 	common.wait_key()
 
 def remove_course(cursor):
