@@ -59,9 +59,21 @@ def remove_note(cursor):
 	print("Which note would you like to remove?")	
 	common.print_courses(cursor)
 	course = input("Enter course code: ")
+	
+	if not common.valid_course_code(cursor, course):
+		print("Given course code does not exist, returning to menu.")
+		common.wait_key()
+		return
+	
 	print("Okay, fetching notes for that course...")
 	common.print_notes(cursor, course)
 	note_id = input("Which note would you like to delete?")
+
+	if not common.valid_note_id(cursor, note_id):
+		print("Given note id does not exist, returning to menu.")
+		common.wait_key()
+		return
+
 	common.remove_note(cursor, note_id)
 
 def change_recent_note(cursor):
@@ -69,13 +81,28 @@ def change_recent_note(cursor):
 
 def change_note(cursor):
 	print("Which course would you like to change notes for?")
-	print_courses(cursor)
+	common.print_courses(cursor)
 	course_code = input("Enter course code: ")
-	course_id = "" 
+
+	if not common.valid_course_code(cursor, course_code):
+		print("Given course code does not exist, returning to menu.")
+		common.wait_key()
+		return
+	 
 	print("Okay, fetching notes for that course...")
-	print_notes(cursor, course)
-	print("Which note would you like to delete?")
-	print("Change a note:")
+	common.print_notes(cursor, course_code)
+	note_id = input("Which note would you like to change?")
+
+	if not common.valid_note_id(cursor, note_id):
+		print("Given note id does not exist, returning to menu.")
+		common.wait_key()
+		return
+
+	cursor.execute("SELECT location FROM notes WHERE note_id=?", (note_id,))
+	result = cursor.fetchone()
+	
+	common.open_note(result[0])
+	common.wait_key()
 
 def get_notes(cursor):
 	print("Retrieve a note:")

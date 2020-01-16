@@ -21,10 +21,17 @@ def remove_course(cursor, course_code):
 
 def remove_note(cursor, note_id):
 	cursor.execute("SELECT location FROM notes WHERE note_id = ?;", (note_id,))
-	location = cursor.fetchone()[0]
+	result = cursor.fetchone()
+	if len(result) == 0:
+		print("Given note_id does not exist.")
+		return False
+	else:
+		location = result[0]
+	
 	os.remove(location)
 	cursor.execute("DELETE FROM notes WHERE note_id = ?", (note_id,))
 	print("Note: " + location + " succesfully removed.")
+	return True
 
 def add_note(cursor, course_code, location, description, created):
 	sql = "INSERT INTO notes(course_code, location, description, created) VALUES(?, ?, ?, ?)"
@@ -41,7 +48,7 @@ def get_date():
 	return date
 
 def print_notes(cursor, course_code):	
-	sql = '''SELECT note_id, location, description 
+	sql = '''SELECT note_id, description, created
 				FROM notes 
 				WHERE course_code = ? 
 				ORDER BY created;'''
@@ -55,3 +62,14 @@ def print_courses(cursor):
 	courses = cursor.fetchall()
 	for course in courses:
 		print(str(course[0]) + ": " + course[1])
+
+def valid_course_code(cursor, course_code):
+	cursor.execute("SELECT * FROM courses WHERE code=?", (course_code,))
+	result = cursor.fetchone()
+	return result != None
+
+def valid_note_id(cursor, note_id):
+	cursor.execute("SELECT * FROM notes WHERE note_id=?", (note_id,))
+	result = cursor.fetchone()
+	return result != None
+
