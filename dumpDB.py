@@ -16,3 +16,10 @@ rows = c.fetchall()
 
 for row in rows:
 	print(row)
+
+print("\n\nreverse index:")
+c.execute("SELECT * FROM indexing INNER JOIN words ON indexing.word_id = words.word_id;")
+rows = c.fetchall()
+
+for row in rows:
+	print(row)

@@ -146,6 +146,44 @@ def remove_course(cursor):
 	print("Course removed...")
 	common.wait_key()
 
+def search_notes(cursor):
+	word_str = input("Enter words to search by, seperated by spaces... ")
+	words = word_str.split(" ")
+	notes = []	
+
+	for word in words:
+		cursor.execute("SELECT word_id FROM words WHERE word=?", (word,))
+		result = cursor.fetchone()
+		if result != None:
+			word_id = result[0]
+			cursor.execute("SELECT note_id FROM indexing WHERE word_id = ?", (word_id,))
+			note_ids = cursor.fetchall()
+			for note in note_ids:
+				note_id = note[0]
+				cursor.execute('''SELECT note_id, course_code, description 
+									FROM notes 
+									WHERE note_id=?''', (note_id,))
+				result = cursor.fetchone()
+				if result != None:
+					notes.append(result)
+
+	print("Search complete, found the following notes:")
+	for note in notes:
+		print("ID: " + str(note[0]) + ", \"" + note[2] + "\", " + note[1])
+	
+	if input("Would you like to open one of these notes?(Y/N)").upper() == "Y":
+		open_note_id = input("Enter the ID of the note you would like to open: ")
+		if not common.valid_note_id(cursor, open_note_id):
+			print("Invalid ID, returning to menu...")
+		else:
+			cursor.execute("SELECT location FROM notes WHERE note_id=?", (open_note_id,))
+			common.open_note(cursor.fetchone()[0])
+	else:
+		print("Okay, returning to menu...")
+
+	common.wait_key()
+	return
+
 def get_notes(cursor):
 	print("Retrieve a note:")
 

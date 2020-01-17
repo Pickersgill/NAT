@@ -15,7 +15,8 @@ optionDict = {
 				"rc" : Option("REMOVE COURSE", options.remove_course), 
 				"crn" : Option("CHANGE RECENT_NOTE", options.change_recent_note),
 				"gn" : Option("GET NOTES", options.get_notes),
-				"q" : Option("QUIT", options.quit),
+				"s" : Option("SEARCH NOTES", options.search_notes),
+				"q" : Option("QUIT", options.quit)
 			}
 
 def start():

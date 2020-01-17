@@ -1,4 +1,5 @@
 import sqlite3
+import re
 import datetime
 import config
 import os
@@ -64,6 +65,39 @@ def print_notes(cursor, course_code):
 
 def finish_modifying(cursor, location):
 	cursor.execute("UPDATE notes SET modified=? WHERE location=?", (get_date(), location,))	
+	reverse_index(cursor, location)
+	
+	
+def reverse_index(cursor, location):
+	
+	cursor.execute("SELECT note_id FROM notes WHERE location=?", (location,))
+	note_id = cursor.fetchone()[0]
+	
+	f = open(location)
+
+	for line in f:
+		line = re.sub(r"[\t\n]", " ",line)
+		words = line.split(" ")
+		print(words)
+		for w in words:
+			add_count(cursor, w, note_id)
+
+def add_count(cursor, word, note_id):
+
+	if len(word) < 1:
+		return
+
+	cursor.execute("SELECT word_id FROM words WHERE word=?", (word,))
+	result = cursor.fetchone()
+	if result != None:	
+		word_id = result[0]
+		cursor.execute('''UPDATE indexing SET count = count + 1 
+						WHERE word_id=? AND note_id=?''', (word_id, note_id,))
+	else:
+		cursor.execute("INSERT INTO words(word) VALUES (?)", (word,))
+		cursor.execute("SELECT word_id FROM words WHERE word=?", (word,))
+		word_id = cursor.fetchone()[0]
+		cursor.execute("INSERT INTO indexing VALUES (?, ?, 1)", (word_id, note_id))
 
 def print_courses(cursor):
 	cursor.execute("SELECT code, title FROM courses;")
