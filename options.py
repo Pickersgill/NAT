@@ -86,6 +86,10 @@ def change_recent_note(cursor):
 				LIMIT 1;'''
 	cursor.execute(sql)
 	result = cursor.fetchone()
+	if result == None:
+		print("There are no notes to change...")
+		common.wait_key()
+		return
 	location = result[0]
 	desc = result[1]
 	modified = result[2]
@@ -150,7 +154,7 @@ def search_notes(cursor):
 	word_str = input("Enter words to search by, seperated by spaces... ")
 	words = word_str.split(" ")
 	notes = []	
-
+	
 	for word in words:
 		cursor.execute("SELECT word_id FROM words WHERE word=?", (word,))
 		result = cursor.fetchone()
@@ -167,6 +171,11 @@ def search_notes(cursor):
 				if result != None:
 					notes.append(result)
 
+	if len(notes) == 0:
+		print("No notes found with given words, returning to menu...")
+		common.wait_key()
+		return
+	
 	print("Search complete, found the following notes:")
 	for note in notes:
 		print("ID: " + str(note[0]) + ", \"" + note[2] + "\", " + note[1])
