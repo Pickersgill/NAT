@@ -48,7 +48,6 @@ def validOption(option):
 	return False
 
 def get_option():
-	#os.system("clear")
 	menu_size = 20
 	print()
 	for option in optionDict:
@@ -60,22 +59,6 @@ def get_option():
 	option = input("\nInput option: ").lower().replace(" ", "")
 
 	return(option)		
-
-def create_note(subject, tags):
-	assert type(subject) is StringType, "Subject given is not string: %r" % subject
-	if(isInstance(tags, list)):
-		if tags.size() > 0:
-			assert type(tags[0]) is StringType, "tags given are not of type string"
-		else:
-			warning("It is reccomended that you give a minimum of 1 tag.")
-	else:
-		print("tags is not of type list")
-		exit(1)
-	
-	
-def warning(message):
-	assert type(message) is StringType, "message given is not string"
-	print("\nWARNING:\t " + message)	
 
 
 if __name__ == "__main__":
