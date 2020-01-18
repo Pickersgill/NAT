@@ -52,7 +52,6 @@ def add_note(cursor, course_code, location, description, created):
 
 def get_date():
 	date = datetime.datetime.today().strftime("%d-%m-%Y_%H:%M:%-S")
-	print(date)
 	return date
 
 def print_notes(cursor, course_code):	
@@ -76,12 +75,15 @@ def reverse_index(cursor, location):
 	
 	f = open(location)
 
+	cursor.execute("UPDATE indexing SET count = 0 WHERE note_id=?", (note_id,))	
+
 	for line in f:
 		line = re.sub(r"[\t\n]", " ",line)
 		words = line.split(" ")
-		print(words)
 		for w in words:
 			add_count(cursor, w, note_id)
+	
+	cursor.execute("DELETE FROM indexing WHERE count=0")
 
 def add_count(cursor, word, note_id):
 
