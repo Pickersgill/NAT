@@ -185,7 +185,17 @@ def search_notes(cursor):
 	return
 
 def get_notes(cursor):
-	print("Retrieve a note:")
+	print("Which note would you like to view notes for?")
+	common.print_courses(cursor)
+	course_code = input("Enter the code of the course: ")
+
+	if not common.valid_course_code(cursor, course_code):
+		print("Course code given does note exist, returning to menu...")
+
+	print("Printing notes for " + course_code + ":")
+	common.print_notes(cursor, course_code)
+
+	common.wait_key()
 
 def quit(cursor):
 	print("Quitting...")

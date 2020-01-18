@@ -36,6 +36,8 @@ def remove_note(cursor, note_id):
 	
 	os.remove(location)
 	cursor.execute("DELETE FROM notes WHERE note_id = ?", (note_id,))
+	cursor.execute("UPDATE indexing SET count = count - 1 WHERE note_id=?", (note_id,))
+	cursor.execute("DELETE FROM indexing WHERE count = 0")
 	print("Note: " + location + " succesfully removed.")
 	return True
 
@@ -66,7 +68,6 @@ def print_notes(cursor, course_code):
 def finish_modifying(cursor, location):
 	cursor.execute("UPDATE notes SET modified=? WHERE location=?", (get_date(), location,))	
 	reverse_index(cursor, location)
-	
 	
 def reverse_index(cursor, location):
 	
