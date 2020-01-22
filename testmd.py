@@ -4,4 +4,6 @@ import markdown
 connection = sqlite3.connect(":memory:")
 cursor = connection.cursor()
 
-markdown.parse("testmd.note", cursor)
+source = "testmd.note"
+
+markdown.parse(source, cursor)
