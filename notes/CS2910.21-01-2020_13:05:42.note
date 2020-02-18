@@ -1,0 +1,36 @@
+CS2910 Artificial Intelligence				21-01-2020 13:05:42
+
+### Prolog pt 2:
+
+- Answers in prolog:
+	*- yes : P logically implies Q
+	*- no : P DOES NOT logically imply Q
+- Prolog Syntax:
+	*- A program in Prolog is a sequence of clauses...
+	*- A clause has form; 'H :- C1...Ck.' or 'H.'
+	*- In the above example, H is the 'head' of the clause, and C1...Ck is the 'body'
+	*- After each clause a terminating sequence '.<tab|space|newline>' is required.
+	*- Each 'C' in the body is the 'call'.
+	*- The same predicate can be used with different arity, i.e. p/1 != p/2
+	*- Prolog is NOT TYPED
+	*- Prolog Terms:
+		**- constants; called 'atoms' (like Haskell/Erlang), lower case letters, or contained in ''
+		**- variable names; alphanumeric sequence of [A-X][A-Za-z0-9_]*.
+		**- compound terms; expression in form: f(t1...tn) where f is a function.
+		**- Prolog also has numbers, strings and lists.
+		**- Facts; pass_cwk(john) or father(john, adam) are example of 'facts'
+		**- Rules; defined as drinks(john) :- anxious(john) or similar rules. 
+		**- Query; a query is a conjunciton of conditions entered into the prolog environment (swipl).			**- Terms containing no variables are said to be 'ground'
+	*- Lists:
+		**- Lists in Prolog are a subclass of binary trees
+		**- A vertical bar '|' can be used as a seperator to present a list in the form;
+			[itemized member | residual list]. i.e. [X, 3 | Y] any list with second element = 3.
+		**- The empty list = []
+		**- A list with first element H follow by T is [H|T]
+		**- [H1, H2|T] is a list with head H1, whoes tail is the list [H2|T]
+		**- The above point also works in 'reverse' [[H1|T]|T2] is a list with head [H1|T] and tail T2
+		**- All lists in prolog can be thought of in this way; [1,2,3] = [[[1]|2]|3]
+		**- When using data structures of fixed size, tuples are more appropriate (1,2,3) or (1,2)
+	
+
+

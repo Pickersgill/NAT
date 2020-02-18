@@ -1,0 +1,43 @@
+CS2910 Artificial Intelligence				28-01-2020 13:07:58
+
+## Prolog part 3:
+
+### Negation as failure:
+- \+ before a query will fail as soon as the query succeeds
+- given male/1 and parent/2
+- the query to identify men with no children is ?-male(P), \+ parent(P,_).
+- p :- \+p cannot solve the query "?-p", as it does not fail finitely.
+- i.e. in order to properly "fail" it must fail all possible clauses in the execution tree.
+- The rules in place for predicate logic (for all = not exists)
+
+
+### Cut:
+- denoted by "!", it is an evaluation control primitive.
+- It is "extra-logical" that is, it is used to control the search
+- It will "cut" some aspects of the search space
+- It can be used proceduraly
+- When used properly it can increase the efficiency of a program significantly
+- When the execution tree finds a succesful result, it will still compute other results to try and
+find alternative cases.
+- This means that there is "wasted" computation in many case (mutually exclusive clauses)
+- This is where "!" can become useful, since you can enforce that the execute will cease once a success  is found.
+- for example: send(customer, balance, message) :- balance < 0, !, warning(customer, message). This will use the cut operator to ignore other cases once balance < 0 succeeds.
+- more generally; p(...) :- T1 ... Tk , !, B1 ... Bk. If (T1 ... Tk) succeeds, then do not find alternative solutions to p when backtracking.
+
+### Conditional Test:
+- Test -> P ; Q, each element is a prolog query. If test is successful, the evaluate P, else evaluate Q, but do not backtrack.
+- This is functionaly the same as a cut based on "Test", between the two clauses.
+
+### Aggregation
+- If you want to collect into a single list, all items satisfying some property.
+- Prolog provides a primitive function findall(Term, Goal, List). Goal, is the predicate, Term is the part of the predicate you are interested in, and List will be the output.
+- For example findall(X, friends(X, Y), L) L will be a list of all people with friends.
+- Useful in conjunction with sublist([X, Y], [L]) which evaluates if given argument is a sublist of L.
+- thus findall([X, Y], sublist([X, Y], [a, b, c]), S). S will be equal to all sublists of S.
+- A similar thing can be done with member(X, [a, b, c]). Which evaluates if X is a member of abc.
+- findall can be used in conjunction with member and sublist to do many powerful things:
+	*- findall(p(CLAUSE), X, Y) can place values from a list into a list of predicates
+	*- findall(g, member(X, L), S). S is a list of g's with length equal to the number of times the Goal	succeeds
+- setof/3, a similar primitive to findall, but slightly more powerful.
+- as the name suggests, itt removes duplicates, and also automatically orders the list
+- order is either numeric or lexical

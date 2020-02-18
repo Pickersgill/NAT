@@ -1,0 +1,67 @@
+CS2910 Artificial Intelligence				04-02-2020 13:58:25
+
+## Adversarial Search
+
+### Games:
+
+- The focus for this course are deterministic games with perfect information, for example chess, go or
+othello
+
+- Games can be defined as the following:
+	+ S0 the initial game state
+	+ PLAYER(s) defines the current priority (who's turn it is)
+	+ ACTIONS(s) returns a set of all currently legal moves
+	+ RESULT(s, a) transition model that describes the change of state based on an action
+	+ TERMINAL-TEST(s) returns true when the game is over
+	+ UTILITY(s, p) returns 1 for a win, 0 for a loss and 1/2 for a draw.
+
+- A zero sum game is one where each player's total payoffs add to 1, for example in chess:
+	1 = 1 + 0 = 0 + 1 = 1/2 + 1/2. Assuming an entry fee of 1/2 for each player.
+
+### MiniMax:
+
+- In a minimax system, one player is Min, the other Max, assuming a two player game.
+
+- decisions which give the highest MiniMax value are chosen for Min and Max respectively.
+
+- In this system, Min and Max choose options which either give them the biggest advantage, or give the
+smallest possible advantage for the opponent.
+
+- Each decisions utility is a value representing how positive the outcome will be.
+
+- The decision tree here describes all possible moves, not just moves available to a single player for
+their respective tree.
+
+- MiniMax is complete for a finite tree 
+
+- optimal against an optimal opponent (non-random).
+
+- The time complexity O(b^m) becomes infeasable once we try to apply this to non-trivial games.
+
+- the solution is to prune the tree in order to reduce the nodes being searched
+
+### a-B Pruning:
+
+- If we know the minimax value of a subtree, we can ignore searching that tree if it's less than the 
+current highest minimax.
+
+- by implementing pruning, the potential depth of the problem is doubled, i.e. O(b^(m/2)).
+
+### Resource Limits:
+
+- Use a CUTOFF-TEST in place of the TERMINAL-TEST, where a resource limit of some kind is exceeded.
+
+- Use EVAL instead of UTILITY which estimates a desirable position.
+
+
+### Summary:
+
+- Games are powerful demonstrations of the effectiveness of AI, especially for search methods
+
+- comparable to car companies competing in GPs, may not represent normal performance, but demostrates
+superiority
+
+- perfection is generally infeasable, approximations must be used.
+
+
+

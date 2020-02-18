@@ -1,0 +1,47 @@
+CS0001 talks				22-01-2020 14:59:20
+
+## Dave Facts:
+	- First used Perl in 1996
+	- Learned from 2nd edition Camel Book.
+
+## Content:
+	- TIMTOWTDI	(there is more than one way to do it)
+	
+	### History:
+	*- written by Larry Wall in 1987
+	*- strong influence from C
+	*- written by a linguist, has natural like -esque features.
+	
+	- <ac=CG1>Common Gateway Interface
+	- Perl was used to write CGIs which were popular in the early days of the internet
+	- Perl is great for "quick and dirty" code
+
+## Language:
+	- UNTYPED :-(
+	- Variables do not need to be pre-prepared
+	- No terminators (no ';')
+	- Allows trailing commas in lists
+	- whitespace *is* whitespace
+	- strings without quotes are consider "ok"
+	- Perl has a "default variable"
+	- can use warnings and strict to solve the variable problems
+	- natural language features:
+		*- Perl has singular and plural
+		*- meaning dependant on context
+		*- pronouns
+		*- word order
+	- Sigils:
+		*- $x = 1 is a singular variable ($)
+		*- @x = (1, 2, 3) is an array (@)
+		*- %x = is a hash variable - dictionary - (%)
+	- the fat comma: '=>' is equivilent to ','
+	- hashes as lists, are arrays, i.e @x = %x
+	- variables are identified by sigil and name, %s != @s
+	- $x = @x, assigns the length of array @x to $x
+	- $x = %x, assigns the length of @x=%x (i.e. for dict of length 3, $x = 6)
+	- scalar forces an array to give a scalar value
+	- "print scalar @x" behaves differently to "print @x", the latter prints the list
+	- do Block: do { ... }, can be modified by 'while' or 'undo'
+	- do Expression: do $something, assumes something is a file name and runs that file
+	
+	

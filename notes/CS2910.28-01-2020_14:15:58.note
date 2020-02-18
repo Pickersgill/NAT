@@ -1,0 +1,27 @@
+CS2910 Artificial Intelligence				28-01-2020 14:15:58
+
+## Intro to AI.
+
+### What is AI?
+
+Intelligence is defined as an ability to acquire and apply knowledge and skills.
+Integration Paradigms, support AI applications:
+	- Automate cognitive tools to create intelligent agents
+	- Agents can perceive the application environment, think, and decide upon actions based on their 
+	environment and objectives
+
+### How do we build an AI?
+
+Should we imitate humans? More specifically:
+	- should AI act like a human?
+	- should AI think like a human?
+The Turing test is a measurement devised by Alan Turing, which attempts to answer the question of
+whether or not machines can behave intelligently, i.e. if a user was communicating with an agent,
+it would be impossible to determine whether the agent was a machine or another person.
+
+Turing predicted that by 2000, an AI could pass the turing test for ~5 minutes against a normal person.
+He anticipated many of the arguments AGAINST AI decades before they arose.
+However the Turing Test is not a good test of agent intelligent, it is not repeatable or "quantifiable".
+
+
+

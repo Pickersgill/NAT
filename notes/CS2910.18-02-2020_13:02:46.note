@@ -1,0 +1,72 @@
+CS2910 Artificial Intelligence				18-02-2020 13:02:46
+
+### Logic for Knowledge Representation:
+
+- Understand how to build/develop a knowledge base.
+
+## Knowledge Representation and Reasoning:
+
+- Forms of knowledge: 
+
+	- Knowing 'facts' (who, what, when).
+
+	- Sensorimotor (skills e.g. juggling, typgin).
+
+	- Deeper knowledge (deep/complex understanding).
+
+- Belief != Knowledge.
+
+## What is representation:
+
+- Symbolic representation, [\+, \/, \*, \-].
+
+## What is reasoning:
+
+- Manipulating symbols which encode propositions, to produce new representations of different propositions.
+
+- For example, arithmetic with symbolic digits.
+
+- We want to build AI agents which are capable of reasoning about their environment, and furthermore, 
+affecting and gaining knowledge about the environment through affectors and sensors.
+
+- This way an agent can reason about the environment it is in, and make advised/intelligent decisions
+about the actions they should take.
+
+## Constructing Knowledge Based Agents:
+
+- Most KBAs are composed of two components.
+
+- Knowledge Base, a set of sentences about what is *known*. each sentence in the KB is expressed in
+formal language. Taken which are taken as given (not derived) are *axioms*.
+
+- Inference Engine, allows for the querying and modification of the knowledge base. Inference involves
+inferring new sentences for the current knowledge base.
+
+- KBAs contains two interfaces, ASK and TELL.
+
+- Both are fairly self-explaining, you can ask questions about the knowledge base, or create new
+sentences in the knowledge base.
+
+- KBAs can be described at three different levels, the knowledge level, the logical level and the implementation level.
+
+- The Knowledge level states what the agent knows, and what goals it holds.
+
+- The Logical level contains the encoded sentence of the knowledge.
+
+- The Implementation level implements the sentences that should run on the agents' platform (domain), 
+for example as prolog facts or C structs.
+
+- # Background Knowledge.
+
+- We can tell an agent what it needs to know before it starts percieving the environment.
+
+- We can design learning capabilities which generate general facts about the environment based on the
+inputs for a series of perceptions/sensors.
+
+- This learned knowledge can be used to improve the agents decision making with regard to it's 
+environment.
+
+- An Autonomous agent is a combination of a knowledge based agent and learning capability.
+
+
+

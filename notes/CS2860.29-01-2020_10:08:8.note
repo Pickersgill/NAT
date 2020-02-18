@@ -1,0 +1,22 @@
+CS2860 Algorithms and Complexity				29-01-2020 10:08:8
+
+### Trees
+
+- Normally represented on a node by node, linked basis.
+- in such a representation, a node appears as:
+
+	class TreeNode:
+		self.left=None
+		self.right=None
+		self.payload=None
+		# OPTIONAL
+		self.parent=None
+	
+	def isLeaf():
+		return left == None and right = None
+
+- This forms a recursive data structure, in that each node contains references to at least 2 other nodes
+- To store non-binary trees, we can replace left/right with firstChild and nextSibling
+- in this case, nextSibling is the pointer to the next node in a singly linked list
+- and firstChild points to the start node of each node list
+- In this way each node is replaced with a linked list of nodes.

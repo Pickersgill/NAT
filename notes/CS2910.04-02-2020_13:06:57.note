@@ -1,0 +1,50 @@
+CS2910 Artificial Intelligence				04-02-2020 13:06:57
+
+## Informed Searches
+
+### Best-first Search:
+
+- Instance of a tree search, implements handling duplicates.
+
+- Evaluation function; used to decide which node to expand, based on estimated desirability, i.e which
+node is most likely to approach an optimal solution.
+
+- In BF search the frontier is a queue sorted from most, to least, desirable.
+
+### Greedy Search:
+	
+- Expands the node which appears closest to the goal based on some heuristic function.
+
+- Assume that the straight line distance from the goal is known from each other node on a graph
+
+- in the case of a shortest path algorithm, a greedy search would always expand the node with the 
+shortest straight line distance to the goal.
+
+- This algorithm can get stuck in loops, however is complete in finite space with loop checking.
+
+- Time complexity: 0(b^m), improves drastically based on correctness of heuristic function.
+
+### A* Search:
+
+- The idea behind A* is to avoid cost by not expanding paths which are already expensive.
+
+- assume a heuristic function as described for greedy search: h(n), and a function for the current cost
+of the path g(n). The evaluation function for A* represents h(n) + g(n) = f(n).
+
+- h(n) must be an ADMISSABLE heuristic. This means it never overestimates the cost to a goal. Since g(n)
+is the actual cost of the path so far, f(n) is admissable.
+
+- Stronger heuristic conditions can be described as consistent, or monotonic. 
+
+- This means that for every node n, succesor of n; n', and action a:
+		h(n) <= c(n, a, n') + h(n')
+
+- Essentially the question of consistency can be posed as the transitivity of the evaluation function.
+
+- A* is optimal on a tree when the evaluation function is admissable, and optimal for a graph when it 
+is consistent.
+
+- A* is complete unless there are infinite nodes with f <= f(G).
+
+- A* has exponential time complexity, and is always optimal
+

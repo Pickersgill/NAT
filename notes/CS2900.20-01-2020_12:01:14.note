@@ -1,0 +1,9 @@
+CS2900 Multi-dimensional Data Processing				20-01-2020 12:01:14
+
+### Orthoganality:
+- Angle of 90 degrees between 2 vectors.
+- If the dot product of 2 vectors is 0, they are orthoganal.
+
+### Projection:
+- Given a vector _u_, and a unit vector v, we can say that _u_ . v = |u|cos theta
+

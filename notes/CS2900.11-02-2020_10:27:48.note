@@ -1,0 +1,50 @@
+CS2900 Multi-dimensional Data Processing				11-02-2020 10:27:48
+
+# Types of matrices and applications
+
+## Sparse Matrices
+
+- A matrix with mostly 0 values is considered sparse.
+
+- An adjancecy matrix is an example of a matrix which is normally sparse.
+
+- when working with sparse matrices, savings can be made in terms of memory and complexity
+
+- numpy has specialized matrix type for sparse matrices, scipy.sparse
+
+### Diagonal Matrices:
+	
+- only the "diagonal" is populated.
+
+- applies to both square and rectangular matrices.
+
+### Tridiagonal Matrices:
+
+- Imagine a diagonal matrix, except elements directly left and right of the diagonal are also non-zero
+
+- Nij != 0 iff i == j or i == j - 1 or i == j + 1.
+
+- In the example of a triadiagonal matrix, you need only store three vectors to represent it.
+
+- Demonstrates some local interactions, i.e. patterns in the matrix where rows affect one another
+often reflected in physical/real world systems (flowers growing etc.)
+
+- You need only srote 3 vectors in order to represent a tridiagonal matrix, the diagonal, the "row" 
+above it and the "row" below it.
+
+### Transpose:
+	
+- Given A, the matrix B is the transpose of A iff:
+	Aij == Bji
+
+- During transpositions, the diagonal remains the same
+
+- When transposing a rectangular matrix, the shape of the matrix is also inverted, i.e. width and height
+are switched
+
+- Commutivity of multiplying transpositions holds even for vector/Matrix multiplication, i.e.:
+	v^tA^t = (vA)^t
+
+- M^tM is a positive, semi-definite matrix
+
+- 

@@ -1,0 +1,16 @@
+CS2900 Multi-dimensional Data Processing				27-01-2020 12:03:28
+
+### Matrices:
+	- Notate with capital letters, M
+	- Row and Columns; Mij, i = row, j = column
+	- Operation on vectrs M_u_ = _v_.
+	- Matrices are linear transformations.
+	- They map from one vector space to another.
+
+## Matrix Compositions:
+	- Only the diagonal of the matrix is populated with non-zero values.
+	- let A and B be matrix rotations for theta1 and 2.
+	- _v_ = A_u_
+	- _w_ = B_v_
+	- Thus, _w_ BA_u_
+	- AB != BA for all matrixes

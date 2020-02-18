@@ -1,0 +1,81 @@
+CS2810 Group Project				27-01-2020 14:01:7
+
+### Refactoring
+
+
+- Described as changes to a code base which change it in some non-functional way, i.e readability, simplicity or performance.
+
+- Both code and UIs can be refactored.
+
+- Types of code smell:
+	
+	- Bloaters; long methods, large class, long/too many parameters
+
+	- Dispensables; duplicate code, data classes, lazy class
+	
+	- Change Preventers; divergent change, shotgun surgery, parallel inheritance hierarchies
+
+	- Couplers; feature envy, message chains
+
+	- Object Oriented Abusers; switch statements, temporary field
+
+- Types of UI smells:
+
+	- FAQ's/Guides, your UI should not be complex enough to require a guide
+	
+	- Hard to implement
+
+	- Excessive iconography, put some words somewhere
+
+- Refactoring workflow:
+	
+	1- Save original code
+	
+	2- Make sure tests pass
+
+	3- Find the code smells
+
+	4- decide how to refactor 
+
+	5- Apply the refactoring
+
+	6- reperform tests
+
+- A comprehensive test suite is important to ensuring correctness during refactoring.
+
+- Refactoring creates risks;
+	
+	- introduce new bugs
+	
+	- "waste" time not developing features
+	
+	- easy to waste too much time trying to get perfect code; daedalus
+
+	- general rule to follow is to refactor the 20% of the code which is active during 80% of operation
+
+	- the focus of your changes should focus on the zipf-ey distribution of code usage
+
+## Duplicated code:
+	
+	- Similar or identical code in codebase
+
+	- makes changes harder, changes have to be done for each instance of the same code block
+	
+	- Excraction; extract the duplicated code from it's multiple sources into 1 location.
+	
+	- Extract method, move multiple methods in one class to a single method
+
+	- Extract method + pull up, if duplicate exists in two classes, move the code into a superclass
+
+	- Extract class, duplicated code in two classes, create seperate object containing the code
+
+## Feature envy:
+	
+	- Tight coupling of classes,
+	
+	- Code uses methods of another class more than it uses it's own
+
+	- related functionality and data should be moved together
+
+	- Refactoring template to cure this is "move method"
+	

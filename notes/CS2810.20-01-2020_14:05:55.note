@@ -1,0 +1,23 @@
+CS2810 Group Project				20-01-2020 14:05:55
+
+### Meeting 1:
+
+## Questions:
+	- What is the intended use of "confirm order" in terms of the waiting system, having a waiter
+		come over to each table to confirm orders seems analagous to just using a traditional order
+		system.
+
+
+## TODO:
+	- Weight tasks in backlog
+	- Decide tasks for sprint 1
+
+## Sprint 1 Tasks:
+	- Set up database on Heroku.
+	- Crate schema for database.
+	- Basic UI for customer interface (retrieve and list menu items).
+	- Make basic changes to menu from the waiting system.
+	- Basic waiting system ui.
+	- Integrate ui with api/heroku/database.
+	? Learn React
+	

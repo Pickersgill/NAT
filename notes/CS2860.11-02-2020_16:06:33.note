@@ -1,0 +1,80 @@
+CS2860 Algorithms and Complexity				11-02-2020 16:06:33
+
+
+# Sets:
+
+- Set is a collection of distinct objects.
+
+- sets normally have atleast an insert, delete and contains function.
+
+- all these functions have O(n) complexity
+
+## Sets in Java (TreeSet and HashSet)
+
+- Java Collections offers two set types, tree and hash.
+
+- both are fairly self-explanatory;
+
+	*- TreeSet requires orderable items, since it uses a balanced tree.
+	
+	*- HashSet is normally faster access-wise, uses a hash table, does not retain order. Requires 
+	hashable item type
+
+# Maps:
+	
+- A collection of key:value associations. 
+
+- Represents a relation/function where each key associates to only 1 value.
+
+- Normally support get, put, remove and containsKey functions.
+
+- Normally supports some (primitive) iteration.
+
+- With orderable keys, it can be implemented via a BST,
+
+- in this case it is faster to search for keys, however value search as still O(n).
+
+- Java Collections has a HashMap and TreeMap.
+
+# Hash Tables:
+
+- Hash tables are like arrays, but can associate between arbitrary item types.
+
+- cannot support orderings.
+
+- keys are stored in a keyset, thus the structure is iterable, as a set can be iterated.
+
+### Implementing hash tables:
+
+- hashes should follow three guidelines, of varying "hardness":
+	
+	*- hash(x) == hash(y) iff x == y, must be enforced
+	
+	*- hash(x) != hash(y) => x == y, should aim to fulfil, but can be handled
+
+	*- hashes should produce a seemingly random distribution, i.e. do not group hashes
+
+- Normally hash functions produce values between 0 and 2 ^ 32, but hashe tables often use less space
+
+- Collisions in hash tables can be managed easily using buckets (simply imagine each item as a 
+linked list)
+
+### EXAMPLE HASH:
+	
+- Choose some prime number P which is >= the maximum value of an item you wish to store
+
+- store each item in a bucket at Key % P
+
+
+	
+
+
+
+
+
+
+
+
+
+
+

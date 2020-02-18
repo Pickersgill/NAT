@@ -1,0 +1,115 @@
+CS2900 Multi-dimensional Data Processing				03-02-2020 12:10:24
+
+## Composing Transformations:
+- Series of different transformations can be multiplied together, i.e. a rotation followed by a 
+stretch operation.
+
+- Given 2 transformations, A & B. A x B \= B x A.
+
+## Identity Matrix:
+- A matrix which doesn't change a vector:
+	1  0
+	0  1
+
+- Generally the symbol 'I' is reserved for the identity matrix.
+
+- An identity matrix (M) in N dimensions is always a matrix where all diagonals (Mij = 1 where i == j)
+are 1, and all other values are 0. The Identity matrix is always a square matrix.
+
+- Any matrix to the power of 0 IS the Identity Matrix (I)
+
+## Compounding Transformations, Inverse Transformations
+- Can we reverse vector transformations? I.e. Given a transformation A, if we have Au = v, does there exist some B, such that Bv = u?
+
+- Assume a rotation theta on vector U = U', the 'reverse' is the rotation of U' by 360 - theta degrees.
+
+- For any stretch transformation, the inverse operation is a stretch where each diagonal in the inverse is equal to 1/A, where A is the value of the diagonal:
+
+	A   0		1/A 0
+	0   B  ->   0 1/B
+
+- Based on our definitions for inverse transformations and the identity matrix, we can assume:
+	ABu = Iu, where A & B are transformations on a vector u.
+
+- A x B = I, where A and B are inverse transformations.
+
+- The above formula is only applicable when B is non-zero.
+
+- A ^ -1 is the inverse of A. (A)(A^-1) = I.
+
+- Not all matrices can be inverted, for example, any non-square matrix.
+
+- A matrix for projecting 3d vectors onto 2d planes is given as S3:
+	1 0 0
+	0 1 0
+	0 0 0
+
+	this shows a generalisation for projection matrices of N dimensions.
+	#TODO
+
+### Inverting compositions:
+
+- if RS, R^-1 and S^-1 exist.
+- (RS)^-1 = (S^-1)(R^-1).
+
+### Applying Matrices; Graphs:
+	
+'''
+- Graph:
+a ---- b
+	  / \
+	 /   \
+	c	  d 
+- Matrix:
+   a b c d
+__________
+a| 0 1 0 0 
+b| 1 0 1 1
+c| 0 1 0 1
+d| 0 1 1 0
+ 
+'''
+- We can represent a graph with a matrix, with rows and columns corresponding to nodes of the graph
+
+- and values within the matrix representing the existence (or lack of) an edge between two nodes
+
+- I.E. For the set of nodes N0 ... Nn represented in matrix M, Nx and Ny share an edge iff:
+		Mxy != 0.
+
+- In this way we can represent weighted graphs through the same expression, now representing the weight
+of an edge as it's corresponding value in the matrix. Such that all non-zero values have truthy nature.
+
+- For symetric graphs (bidirectional), the symetry of the graph is represented along the diagonal of the matrix.
+
+- Graph matrices are square.
+
+### Double Hop Matrices:
+
+- Similar to normal matrix, but Mij != 0 iff there is a node L, such that: Ni -> L, L -> Nj.
+
+- I.E. if Ni and Nj share a neighbour.
+
+
+### Homogonous Coordinates; http://web.cs.iastate.edu/~cs577/handouts/homogeneous-transform.pdf
+
+### Inner Products:
+
+- notation: <u, v> = inner product of u and v.
+
+- All inner products are real numbers (similar to dot product).
+
+- <x, x> >= 0
+
+- if <x, x> = 0, x = 0
+
+- inputs of inner product must be of the same type.
+
+- a dot product is A TYPE of inner product. 
+
+- both inner product and dot product canbe used to determine the cosine of an angle between to points
+from -1 to 1, with 1 being exactly similar.
+
+- co-variance, a measurement of the relationship between two similarly formed sets of data
+
+- the cosine theta calculation of two inner product, is actually a measurement of correlation
+
