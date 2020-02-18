@@ -12,7 +12,7 @@ def new_note(cursor):
 	created.replace(" ", "_")
 
 	# Fetching file location data
-	location = config.get("root") + "/" + code + "." + created + ".note"
+	location = config.get("root") + "/" + code + "." + created + ".md"
 	location = location.replace(" ", "_")
 
 	# Fetching description data
